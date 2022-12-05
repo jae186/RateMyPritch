@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".sign_up_page">
 
+
     <ImageButton
         android:id="@+id/imageButton7"
         android:layout_width="wrap_content"

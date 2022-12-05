@@ -8,10 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.os.AsyncTask;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LandingPage extends AppCompatActivity {
 
-    DB_Helper DB;
+ //   DB_Helper DB;
+    TextView txtString;
+    public String url= "https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote?token=ipworld.info";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +39,21 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
+        txtString= (TextView)findViewById(R.id.txtRequest);
+
+        try {
+            run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         EditText email_signin = (EditText) findViewById(R.id.email);
         EditText password_signin = (EditText) findViewById(R.id.pass);
 
         loglog = (Button) findViewById(R.id.button6);
         signUp = (Button) findViewById(R.id.button7);
         signUpLater = (Button) findViewById(R.id.button8);
-        DB = new DB_Helper(this);
+        //DB = new DB_Helper(this);
         EditText username = (EditText) findViewById(R.id.email);
         EditText password = (EditText) findViewById(R.id.pass);
 
@@ -47,15 +72,15 @@ public class LandingPage extends AppCompatActivity {
 
                 if (user.equals("") || pass.equals(""))
                     Toast.makeText(LandingPage.this, "Enter all the fields.", Toast.LENGTH_SHORT).show();
-                else {
-                    Boolean checkuserpass = DB.checkusernamepassword(user, pass);
-                    if (checkuserpass == true) {
+                //else {
+                    //Boolean checkuserpass = DB.checkusernamepassword(user, pass);
+                   // if (checkuserpass == true) {
                         Toast.makeText(LandingPage.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
                         startActivity(intentGoMain);
-                    } else {
-                        Toast.makeText(LandingPage.this, "Invalid Account.", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                  //  } else {
+                   //     Toast.makeText(LandingPage.this, "Invalid Account.", Toast.LENGTH_SHORT).show();
+                  //  }
+              //  }
             }
         });
 
@@ -76,4 +101,39 @@ public class LandingPage extends AppCompatActivity {
         });
 
     }
+
+    void run() throws IOException {
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .addHeader("X-RapidAPI-Key", "fb352cc763msh83751fccbd4f286p102897jsn2591a4b47bf5")
+                .addHeader("X-RapidAPI-Host", "quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+
+                LandingPage.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String[] bro = myResponse.split(":");
+                        txtString.setText(bro[2].substring(0,bro[2].length()-1));
+                    }
+                });
+
+            }
+        });
+    }
+
 }

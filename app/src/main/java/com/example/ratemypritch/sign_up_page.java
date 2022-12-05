@@ -10,9 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+
 public class sign_up_page extends AppCompatActivity {
 
-    DB_Helper DB;
+   // DB_Helper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class sign_up_page extends AppCompatActivity {
         ImageButton back_button = (ImageButton) findViewById(R.id.imageButton7);
         sign_up = findViewById(R.id.button);
         sign_up_later = findViewById(R.id.button2);
-        DB = new DB_Helper(this);
+      //  DB = new DB_Helper(this);
 
         Intent intent = new Intent(this, LandingPage.class);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -64,27 +65,27 @@ public class sign_up_page extends AppCompatActivity {
                 if(user.equals("")||pass.equals("")||repass.equals(""))
                     Toast.makeText(sign_up_page.this, "Enter all the fields", Toast.LENGTH_SHORT).show();
                 else{
-                    if(pass.equals(repass)){
-                        Boolean checkuser = DB.checkusername(user);
-                        if(checkuser==false){
-                            Boolean insert = DB.insertData(user, pass);
-                            if(insert==true){
+                    //if(pass.equals(repass)){
+                        //Boolean checkuser = DB.checkusername(user);
+                        //if(checkuser==false){
+                           // Boolean insert = DB.insertData(user, pass);
+                           // if(insert==true){
                                 Toast.makeText(sign_up_page.this, "User Registered successfully!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),LandingPage.class);
                                 startActivity(intent);
-                            }else{
-                                Toast.makeText(sign_up_page.this, "Sign-up failed!", Toast.LENGTH_SHORT).show();
+                           // }else{
+                                //Toast.makeText(sign_up_page.this, "Sign-up failed!", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else{
-                            Toast.makeText(sign_up_page.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(sign_up_page.this, "Passwords does not match!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                       // else{
+                           // Toast.makeText(sign_up_page.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
+                     //   }
+                   // }else{
+                        //Toast.makeText(sign_up_page.this, "Passwords does not match!", Toast.LENGTH_SHORT).show();
+                  //  }
+               // }
 
-            }
+          //  }
         });
 
 
