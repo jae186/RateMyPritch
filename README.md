@@ -53,3 +53,11 @@ Our classes are as follows:
 - LandingPage (Sign-up page with option to continue without signing up)
 - My_Reviews (List of users current reviews as well as user control buttons)
 - Sign_Up_Page (Sign up page)
+
+##APIs I added
+- Quotes Inspirational Quotes Motivational Quotes from RapidApi
+  Displays a new quote everyday to the user on the landing page. I used this as the main demographic for our app is university students who may often be struggling. Quotes are a good way of motivating people and so I thought it would be a good idea to display a new one everyday for our users.
+- COVID-19
+  Provides the app with COVID data relevant to a geographical location. I selected Canada as the area and extracted data for the number of current cases, per day, to decide whether or not it was safe to go to Pritchard - a place where it is difficult to maintain social distancing. 
+<img width="278" alt="Screen Shot 2022-12-05 at 8 15 16 PM" src="https://user-images.githubusercontent.com/48756230/205811933-27cf2969-446b-4157-9416-d395d34e2b49.png">
+
